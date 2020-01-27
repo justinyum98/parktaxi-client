@@ -1,50 +1,52 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Grid } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 
 import { changeMode } from "../../actions";
 import Map from "../Map";
 import Pin from "../Pin";
+import Buy from "../Buy";
+import Sell from "../Sell";
 
 function Home(props) {
-  // SHOULD BE STORED IN THE SEVER
-  const lotsData = [
-    {
-      id: "Pangea",
-      location: {
-        lat: 32.8842556,
-        lng: -117.2431062
-      }
-    },
-    {
-      id: "Gilman",
-      location: {
-        lat: 32.8773774,
-        lng: -117.2338526
-      }
-    }
-  ];
   return (
-    <div>
-      <Grid item xs={2}>
-        <button onClick={props.changeMode}>changeMode</button>
-      </Grid>
-      <Grid item xs={9}>
-        <Map>
-          {lotsData.map(lot => (
-            <Pin
-              key={lot.id}
-              id={lot.id}
-              lat={lot.location.lat}
-              lng={lot.location.lng}
-            >
-              dfg
-            </Pin>
-          ))}
-        </Map>
-      </Grid>
+    <div
+      style={{
+        height: "100vh",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column"
+      }}
+    >
+      <div style={{ flex: 2 }}>
+        <Map></Map>
+      </div>
+      <div style={{ flex: 1 }}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={props.form.mode === "buy"}
+              onChange={props.changeMode}
+              color="primary"
+              value="dynamic-class-name"
+            />
+          }
+          label={
+            props.form.mode === "buy"
+              ? "Looking for a spot?"
+              : "Are you leaving?"
+          }
+        />
+        {props.form.mode === "buy" ? <Buy></Buy> : <Sell></Sell>}
+      </div>
     </div>
   );
 }
+const mapStateToProps = state => ({
+  form: state.form
+});
 
-export default connect(null, { changeMode })(Home);
+export default connect(mapStateToProps, { changeMode })(Home);

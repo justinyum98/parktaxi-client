@@ -1,7 +1,7 @@
 import React from "react";
 import { toggleLot } from "../actions";
+import Button from "@material-ui/core/Button";
 
 export default function Pin(props) {
-  console.log(props);
-  return <p>sadf</p>;
+  return <Button variant="outlined">Default</Button>;
 }

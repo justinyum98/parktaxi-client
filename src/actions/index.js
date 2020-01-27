@@ -43,8 +43,8 @@ export const sellSpots = spot => (dispatch, getState) => {
     .catch(err => console.log(err));
 };
 
-export const setSpotsLoading = () => {
-  return {
+export const setSpotsLoading = () => dispatch => {
+  dispatch({
     type: LOADING_SPOTS
-  };
+  });
 };
