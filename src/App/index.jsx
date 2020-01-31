@@ -5,14 +5,16 @@ import {
 } from 'react-router-dom';
 
 import Home from '../pages/Home';
-import Login from '../pages/LoginPage';
+import LoginPage from '../pages/LoginPage';
 import About from '../pages/About';
+
+import './App.css';
 
 const App = () => (
   <Router>
     <Route exact path="/" component={Home} />
     <Route path="/about" component={About} />
-    <Route path="/login" component={Login} />
+    <Route path="/login" component={LoginPage} />
   </Router>
 );
 
