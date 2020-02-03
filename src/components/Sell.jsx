@@ -1,6 +1,6 @@
-import React from "react";
-import { sellSpots } from "../actions";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
+import { sellSpots } from '../redux/actions';
 
 function Sell(props) {
   return (
@@ -8,12 +8,13 @@ function Sell(props) {
       <button
         onClick={() => {
           const newSpot = {
-            lot: "PANGEA",
-            time: Date("20200101")
+            lot: 'PANGEA',
+            time: Date('20200101')
           };
           props.sellSpots(newSpot);
         }}
-      ></button>
+      >
+      </button>
     </div>
   );
 }

@@ -4,16 +4,16 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Home from '../pages/Home';
+import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
-import About from '../pages/About';
+import AboutPage from '../pages/AboutPage';
 
 import './App.css';
 
 const App = () => (
   <Router>
-    <Route exact path="/" component={Home} />
-    <Route path="/about" component={About} />
+    <Route exact path="/" component={HomePage} />
+    <Route path="/about" component={AboutPage} />
     <Route path="/login" component={LoginPage} />
   </Router>
 );
