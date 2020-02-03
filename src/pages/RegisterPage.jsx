@@ -1,8 +1,8 @@
 import React from 'react';
 
-import WrappedLoginForm from '../components/WrappedLoginForm';
+import WrappedRegistrationForm from '../components/WrappedRegistrationForm';
 
-const LoginPage = () => (
+const RegisterPage = () => (
   <div
     style={{
       minHeight: '100vh',
@@ -15,8 +15,8 @@ const LoginPage = () => (
     <div className="logo">
       Logo here
     </div>
-    <WrappedLoginForm />
+    <WrappedRegistrationForm />
   </div>
 );
 
-export default LoginPage;
+export default RegisterPage;

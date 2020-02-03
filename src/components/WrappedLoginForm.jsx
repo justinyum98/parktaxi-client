@@ -1,6 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
   Form, Icon, Input, Button, Checkbox,
 } from 'antd';
@@ -53,15 +53,15 @@ const LoginForm = ({ form }) => {
         })(
           <Checkbox>Remember me</Checkbox>,
         )}
-        <a className="login-form-forgot" href="">
+        <Link className="login-form-forgot" to="/forgot">
           Forgot password
-        </a>
+        </Link>
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
         Or
         {' '}
-        <a href="">register now!</a>
+        <Link to="/register">register now!</Link>
       </Form.Item>
     </Form>
   );
@@ -78,6 +78,6 @@ LoginForm.defaultProps = {
   form: undefined,
 };
 
-const WrappedLoginForm = Form.create({ name: 'normal_login' })(LoginForm);
+const WrappedLoginForm = Form.create({ name: 'login' })(LoginForm);
 
 export default WrappedLoginForm;
