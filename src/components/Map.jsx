@@ -7,8 +7,7 @@ function Map({ lots, onLotClick }) {
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
-        // TODO: Replace key with process.env.REACT_APP_MAPS_API_KEY
-        bootstrapURLKeys={{ key: 'AIzaSyDwU5A0BtiuNi2kQ4BYjqSJ0AzHZeufR3Q' }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_API_KEY }}
         defaultCenter={{
           lat: 32.88,
           lng: -117.23,
