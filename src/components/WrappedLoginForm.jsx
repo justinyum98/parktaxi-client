@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import {
   Form, Icon, Input, Button, Checkbox,
 } from 'antd';
@@ -10,8 +11,14 @@ const LoginForm = ({ form }) => {
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
-        // TODO: Replace console.log with POST request to /login endpoint.
-        console.log('Received values of form: ', values);
+        const request = {
+          method: 'post',
+          url: 'https://api.parktaxi.app/login',
+          data: { ...values },
+        };
+        axios(request)
+          .then(() => console.log('Login successful.'))
+          .catch(() => console.log('Login failed.'));
       }
     });
   };

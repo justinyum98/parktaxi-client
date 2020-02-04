@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import {
   Form, Input, Button,
 } from 'antd';
@@ -12,8 +13,14 @@ const RegistrationForm = ({ form }) => {
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
-        // TODO: Replace console.log with POST request to /register endpoint.
-        console.log('Received values of form: ', values);
+        const request = {
+          method: 'post',
+          url: 'https://api.parktaxi.app/register',
+          data: { ...values },
+        };
+        axios(request)
+          .then(() => console.log('User successfully registered.'))
+          .catch(() => console.log('Registration failed.'));
       }
     });
   };
