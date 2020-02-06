@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 
 const isAuthenticated = () => {
   const session = Cookies.get('connect.sid');
+  console.log('session cookie:', session);
   if (session) return true;
   return false;
 };
