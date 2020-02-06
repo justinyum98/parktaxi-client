@@ -22,6 +22,7 @@ const LoginForm = ({ form }) => {
           .then((response) => {
             console.log(response);
             message.success('Successfully logged in!');
+            window.location.replace('https://parktaxi.app');
           })
           .catch((error) => {
             console.log(error);
