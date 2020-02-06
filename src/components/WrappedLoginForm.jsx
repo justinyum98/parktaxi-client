@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
-  Form, Icon, Input, Button, Checkbox,
+  Form, Icon, Input, Button, message,
 } from 'antd';
 
 const LoginForm = ({ form }) => {
@@ -11,14 +11,19 @@ const LoginForm = ({ form }) => {
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
+        message.loading('Logging in...');
         const request = {
           method: 'post',
           url: 'https://api.parktaxi.app/login',
           data: { ...values },
         };
         axios(request)
-          .then(() => console.log('Login successful.'))
-          .catch(() => console.log('Login failed.'));
+          .then((response) => {
+            message.success('Successfully logged in!');
+          })
+          .catch((error) => {
+            message.error('Error when logging in. Try again.');
+          });
       }
     });
   };
@@ -27,7 +32,7 @@ const LoginForm = ({ form }) => {
   return (
     <Form onSubmit={handleSubmit} className="login-form">
       <Form.Item>
-        {getFieldDecorator('emailAddress', {
+        {getFieldDecorator('email', {
           rules: [{
             required: true,
             message: 'Please input a valid UCSD email address!',
@@ -54,12 +59,6 @@ const LoginForm = ({ form }) => {
         )}
       </Form.Item>
       <Form.Item>
-        {getFieldDecorator('remember', {
-          valuePropName: 'checked',
-          initialValue: true,
-        })(
-          <Checkbox>Remember me</Checkbox>,
-        )}
         <Link className="login-form-forgot" to="/forgot">
           Forgot password
         </Link>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
-  Form, Input, Button,
+  Form, Input, Button, message,
 } from 'antd';
 
 const RegistrationForm = ({ form }) => {
@@ -13,14 +13,27 @@ const RegistrationForm = ({ form }) => {
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
+        message.loading('Registering user...');
         const request = {
           method: 'post',
           url: 'https://api.parktaxi.app/register',
           data: { ...values },
         };
         axios(request)
-          .then(() => console.log('User successfully registered.'))
-          .catch(() => console.log('Registration failed.'));
+          .then((response) => {
+            message.success('Succesfully registered!');
+          })
+          .catch((error) => {
+            if (error.response) {
+              if (error.response.status === 409) {
+                message.error('Error 409: User already exists.');
+              } else if (error.response.status === 500) {
+                message.error('Error 500: Internal Server Error.');
+              }
+            } else {
+              message.error('Unknown Error has occured.');
+            }
+          });
       }
     });
   };
