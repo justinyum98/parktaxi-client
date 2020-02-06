@@ -19,9 +19,11 @@ const LoginForm = ({ form }) => {
         };
         axios(request)
           .then((response) => {
+            console.log(response);
             message.success('Successfully logged in!');
           })
           .catch((error) => {
+            console.log(error);
             message.error('Error when logging in. Try again.');
           });
       }
