@@ -16,6 +16,7 @@ const LoginForm = ({ form }) => {
           method: 'post',
           url: 'https://api.parktaxi.app/login',
           data: { ...values },
+          withCredentials: true,
         };
         axios(request)
           .then((response) => {
