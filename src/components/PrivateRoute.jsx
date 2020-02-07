@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 const isAuthenticated = () => {
-  const session = Cookies.get('connect.sid');
-  console.log('session cookie:', session);
-  if (session) return true;
+  const cookies = document.cookie;
+  console.log('cookies:', cookies);
+  if (cookies) return true;
   return false;
 };
 
