@@ -16,7 +16,7 @@ const RegistrationForm = ({ form }) => {
         message.loading('Registering user...');
         const request = {
           method: 'post',
-          url: 'https://api.parktaxi.app/register',
+          url: `${process.env.REACT_APP_BACKEND_URL}/register`,
           data: { ...values },
         };
         axios(request)
@@ -31,7 +31,7 @@ const RegistrationForm = ({ form }) => {
                 message.error('Error 500: Internal Server Error.');
               }
             } else {
-              message.error('Unknown Error has occured.');
+              message.error('Unknown error has occured.');
             }
           });
       }

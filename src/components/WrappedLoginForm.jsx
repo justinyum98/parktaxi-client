@@ -5,28 +5,44 @@ import axios from 'axios';
 import {
   Form, Icon, Input, Button, message,
 } from 'antd';
+import verifyJWT from '../utils/jwt';
 
 const LoginForm = ({ form }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
+        // TODO: Refactor, needs cutting down.
         message.loading('Logging in...');
         const request = {
           method: 'post',
-          url: 'https://api.parktaxi.app/login',
+          url: `${process.env.REACT_APP_BACKEND_URL}/login`,
           data: { ...values },
           withCredentials: true,
         };
         axios(request)
           .then((response) => {
-            console.log(response);
-            message.success('Successfully logged in!');
-            window.location.href = 'https://parktaxi.app';
+            const token = response.data.jwt;
+            verifyJWT(token)
+              .then((decoded) => {
+                window.sessionStorage.setItem('token', token);
+                window.location.href = process.env.REACT_APP_LOGIN_SUCCESS_REDIRECT;
+              })
+              .catch((err2) => {
+                console.log('Error in verifying JWT:', err2);
+                message.error('Error has occured. Try again.');
+              });
           })
           .catch((error) => {
-            console.log(error);
-            message.error('Error when logging in. Try again.');
+            if (error.response) {
+              if (error.response.status === 401) {
+                message.error('Error 401: Authentication failed.');
+              } else if (error.response.status === 500) {
+                message.error('Error 500: Internal Server Error.');
+              }
+            } else {
+              message.error('Unknown error has occured.');
+            }
           });
       }
     });

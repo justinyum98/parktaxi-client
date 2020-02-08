@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
 const isAuthenticated = () => {
-  const cookies = document.cookie;
-  console.log('cookies:', cookies);
-  if (cookies) return true;
+  const token = window.sessionStorage.getItem('token');
+  if (token) return true;
   return false;
 };
 
