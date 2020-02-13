@@ -1,41 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
+import axios from 'axios';
 import SideNavbar from '../components/SideNavbar';
 import Map from '../components/Map';
+import Options from '../components/Options';
 
 function HomePage() {
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [lots, setLots] = useState([]);
+  useEffect(() => {
+    const request = {
+      method: 'GET',
+      url: `${process.env.REACT_APP_BACKEND_URL}/api/lot`,
+    };
+    axios(request)
+      .then((response) => {
+        console.log(response);
+        setLots(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-  const onLotClick = ({ name, lat, lng }) => {
-    console.log('onLotClick');
-    console.log('name:', name);
-    console.log('lat:', lat);
-    console.log('lng:', lng);
-    setIsDrawerVisible(true);
+  const [currentLocation, setCurrentLocation] = useState(undefined);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { latitude, longitude } = position.coords;
+      setCurrentLocation({
+        lat: latitude,
+        lng: longitude,
+      });
+    });
+  }, []);
+
+  const onRideClick = () => {
+
   };
 
-  // TODO: Finish setup of the drawer.
+  const onParkClick = () => {
 
-  // TODO: Replace fakeLots with actual data from db.
-  const fakeLots = [
-    {
-      name: 'Pangea',
-      lat: 32.8842556,
-      lng: -117.2431062,
-    },
-    {
-      name: 'Gilman',
-      lat: 32.8773774,
-      lng: -117.2338526,
-    },
-  ];
+  };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <SideNavbar />
       <Layout>
         <Layout.Content style={{ margin: '0 16px' }}>
-          <Map lots={fakeLots} onLotClick={onLotClick} />
+          <Map
+            lots={lots}
+            currentLocation={currentLocation}
+          />
+          <Options
+            onRideClick={onRideClick}
+            onParkClick={onParkClick}
+          />
+          
         </Layout.Content>
       </Layout>
     </Layout>

@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
+import _ from 'lodash';
 import Lot from './Lot';
+import UserLocationPin from './UserLocationPin';
 
-function Map({ lots, onLotClick }) {
+const Map = ({ lots, currentLocation }) => {
+  const currentLat = _.get(currentLocation, 'lat');
+  const currentLng = _.get(currentLocation, 'lng');
+
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div style={{ height: '85vh', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_API_KEY }}
         defaultCenter={{
@@ -19,13 +24,21 @@ function Map({ lots, onLotClick }) {
             name={name}
             lat={lat}
             lng={lng}
-            onLotClick={onLotClick}
           />
         ))}
+        {currentLocation ? (
+          <UserLocationPin
+            lat={currentLat}
+            lng={currentLng}
+          />
+        ) : (
+          <div />
+        )}
+
       </GoogleMapReact>
     </div>
   );
-}
+};
 
 Map.propTypes = {
   lots: PropTypes.arrayOf(PropTypes.shape({
@@ -33,12 +46,15 @@ Map.propTypes = {
     lat: PropTypes.number,
     lng: PropTypes.number,
   })),
-  onLotClick: PropTypes.func,
+  currentLocation: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+  }),
 };
 
 Map.defaultProps = {
   lots: [],
-  onLotClick: undefined,
+  currentLocation: undefined,
 };
 
 export default Map;
