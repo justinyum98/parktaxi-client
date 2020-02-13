@@ -2,29 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Popover, Button } from 'antd';
 
-const Lot = ({ name, lat, lng }) => (
+const UserLocationPin = ({ lat, lng }) => (
   <>
-    <Popover title={name}>
+    <Popover title="Current Location">
       <Button
-        type="danger"
+        type="primary"
         size="small"
         shape="circle"
-        icon="environment"
+        icon="user"
       />
     </Popover>
   </>
 );
 
-Lot.propTypes = {
-  name: PropTypes.string,
+UserLocationPin.propTypes = {
   lat: PropTypes.number,
   lng: PropTypes.number,
 };
 
-Lot.defaultProps = {
-  name: undefined,
+UserLocationPin.defaultProps = {
   lat: undefined,
   lng: undefined,
 };
 
-export default Lot;
+export default UserLocationPin;
