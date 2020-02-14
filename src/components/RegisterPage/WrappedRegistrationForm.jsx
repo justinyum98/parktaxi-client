@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {
-  Form, Input, Button, message,
-} from 'antd';
+import { Form, Input, Button, message } from 'antd';
 
 const RegistrationForm = ({ form }) => {
   const [isConfirmDirty, setIsConfirmDirty] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
@@ -17,13 +15,13 @@ const RegistrationForm = ({ form }) => {
         const request = {
           method: 'post',
           url: `${process.env.REACT_APP_BACKEND_URL}/register`,
-          data: { ...values },
+          data: { ...values }
         };
         axios(request)
-          .then((response) => {
+          .then(response => {
             message.success('Succesfully registered!');
           })
-          .catch((error) => {
+          .catch(error => {
             if (error.response) {
               if (error.response.status === 409) {
                 message.error('Error 409: User already exists.');
@@ -38,7 +36,7 @@ const RegistrationForm = ({ form }) => {
     });
   };
 
-  const handleConfirmBlur = (e) => {
+  const handleConfirmBlur = e => {
     const { value } = e.target;
     setIsConfirmDirty(isConfirmDirty || !!value);
   };
@@ -70,47 +68,47 @@ const RegistrationForm = ({ form }) => {
   const formItemLayout = {
     labelCol: {
       xs: { span: 24 },
-      sm: { span: 8 },
+      sm: { span: 8 }
     },
     wrapperCol: {
       xs: { span: 24 },
-      sm: { span: 16 },
-    },
+      sm: { span: 16 }
+    }
   };
   const tailFormItemLayout = {
     wrapperCol: {
       xs: {
         span: 24,
-        offset: 0,
+        offset: 0
       },
       sm: {
         span: 16,
-        offset: 8,
-      },
-    },
+        offset: 8
+      }
+    }
   };
 
   const { getFieldDecorator } = form;
   return (
-    <Form
-      {...formItemLayout}
-      onSubmit={handleSubmit}
-      className="register-form"
-    >
+    <Form {...formItemLayout} onSubmit={handleSubmit} className="register-form">
       <Form.Item label="First Name">
         {getFieldDecorator('firstName', {
-          rules: [{
-            required: true,
-            message: 'Please input your first name!',
-          }],
+          rules: [
+            {
+              required: true,
+              message: 'Please input your first name!'
+            }
+          ]
         })(<Input />)}
       </Form.Item>
       <Form.Item label="Last Name">
         {getFieldDecorator('lastName', {
-          rules: [{
-            required: true,
-            message: 'Please input your last name!',
-          }],
+          rules: [
+            {
+              required: true,
+              message: 'Please input your last name!'
+            }
+          ]
         })(<Input />)}
       </Form.Item>
       <Form.Item label="E-mail" extra="Currently, only UCSD emails are valid.">
@@ -118,16 +116,16 @@ const RegistrationForm = ({ form }) => {
           rules: [
             {
               type: 'email',
-              message: 'The input is not a valid e-mail.',
+              message: 'The input is not a valid e-mail.'
             },
             {
               required: true,
-              message: 'Please input your e-mail!',
+              message: 'Please input your e-mail!'
             },
             {
-              validator: validateUCSDEmail,
-            },
-          ],
+              validator: validateUCSDEmail
+            }
+          ]
         })(<Input />)}
       </Form.Item>
       <Form.Item label="Password" hasFeedback>
@@ -135,12 +133,12 @@ const RegistrationForm = ({ form }) => {
           rules: [
             {
               required: true,
-              message: 'Please input your password',
+              message: 'Please input your password'
             },
             {
-              validator: validateToNextPassword,
-            },
-          ],
+              validator: validateToNextPassword
+            }
+          ]
         })(<Input.Password />)}
       </Form.Item>
       <Form.Item label="Confirm Password" hasFeedback>
@@ -148,23 +146,24 @@ const RegistrationForm = ({ form }) => {
           rules: [
             {
               required: true,
-              message: 'Please confirm your password!',
+              message: 'Please confirm your password!'
             },
             {
-              validator: compareToFirstPassword,
-            },
-          ],
+              validator: compareToFirstPassword
+            }
+          ]
         })(<Input.Password onBlur={handleConfirmBlur} />)}
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit" className="register-form-button">
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="register-form-button"
+        >
           Register
         </Button>
         Or
-        {' '}
-        <Link to="/login">
-          login to existing account.
-        </Link>
+        <Link to="/login">login to existing account.</Link>
       </Form.Item>
     </Form>
   );
@@ -174,14 +173,16 @@ RegistrationForm.propTypes = {
   form: PropTypes.shape({
     getFieldDecorator: PropTypes.func,
     validateFields: PropTypes.func,
-    getFieldValue: PropTypes.func,
-  }),
+    getFieldValue: PropTypes.func
+  })
 };
 
 RegistrationForm.defaultProps = {
-  form: undefined,
+  form: undefined
 };
 
-const WrappedRegistrationForm = Form.create({ name: 'register' })(RegistrationForm);
+const WrappedRegistrationForm = Form.create({ name: 'register' })(
+  RegistrationForm
+);
 
 export default WrappedRegistrationForm;

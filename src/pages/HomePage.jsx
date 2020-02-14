@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
 import axios from 'axios';
-import SideNavbar from '../components/SideNavbar';
-import Map from '../components/Map';
-import Options from '../components/Options';
+import SideNavbar from '../components/HomePage/SideNavbar';
+import Map from '../components/HomePage/Map';
+import Options from '../components/HomePage/Options';
 
 function HomePage() {
   const [lots, setLots] = useState([]);

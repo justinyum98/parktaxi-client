@@ -11,20 +11,22 @@ const isAuthenticated = () => {
 const PrivateRoute = ({ component: Component, ...props }) => (
   <Route
     {...props}
-    render={(innerProps) => (
-      isAuthenticated()
-        ? <Component {...innerProps} />
-        : <Redirect to="/login" />
-    )}
+    render={innerProps =>
+      isAuthenticated() ? (
+        <Component {...innerProps} />
+      ) : (
+        <Redirect to="/login" />
+      )
+    }
   />
 );
 
 PrivateRoute.propTypes = {
-  component: PropTypes.node,
+  component: PropTypes.node
 };
 
 PrivateRoute.defaultProps = {
-  component: undefined,
+  component: undefined
 };
 
 export default PrivateRoute;

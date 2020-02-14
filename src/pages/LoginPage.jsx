@@ -1,6 +1,6 @@
 import React from 'react';
 
-import WrappedLoginForm from '../components/WrappedLoginForm';
+import WrappedLoginForm from '../components/LoginPage/WrappedLoginForm';
 
 const LoginPage = () => (
   <div

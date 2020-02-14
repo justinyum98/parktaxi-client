@@ -1,6 +1,6 @@
 import React from 'react';
 
-import WrappedRegistrationForm from '../components/WrappedRegistrationForm';
+import WrappedRegistrationForm from '../components/RegisterPage/WrappedRegistrationForm';
 
 const RegisterPage = () => (
   <div
