@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 
+import { ReactComponent as Logo } from '../../assets/parktaxilogo.svg';
+
 function SideNavbar() {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
-  const onCollapse = (collapsed) => {
+  const onCollapse = collapsed => {
     console.log(collapsed);
     setIsCollapsed(collapsed);
   };
 
   return (
     <Layout.Sider collapsible collapsed={isCollapsed} onCollapse={onCollapse}>
-      <div className="logo" />
+      <Logo
+        style={{
+          height: '50px',
+          width: '50px',
+          display: 'block',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginTop: '10px',
+          marginBottom: '10px'
+        }}
+      />
       <Menu theme="dark" mode="inline">
         <Menu.Item key="1">
           <Icon type="user" />

@@ -10,51 +10,40 @@ function HomePage() {
   useEffect(() => {
     const request = {
       method: 'GET',
-      url: `${process.env.REACT_APP_BACKEND_URL}/api/lot`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/api/lot`
     };
     axios(request)
-      .then((response) => {
+      .then(response => {
         console.log(response);
         setLots(response.data);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }, []);
 
   const [currentLocation, setCurrentLocation] = useState(undefined);
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(async (position) => {
+    navigator.geolocation.getCurrentPosition(async position => {
       const { latitude, longitude } = position.coords;
       setCurrentLocation({
         lat: latitude,
-        lng: longitude,
+        lng: longitude
       });
     });
   }, []);
 
-  const onRideClick = () => {
+  const onRideClick = () => {};
 
-  };
-
-  const onParkClick = () => {
-
-  };
+  const onParkClick = () => {};
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <SideNavbar />
       <Layout>
         <Layout.Content style={{ margin: '0 16px' }}>
-          <Map
-            lots={lots}
-            currentLocation={currentLocation}
-          />
-          <Options
-            onRideClick={onRideClick}
-            onParkClick={onParkClick}
-          />
-          
+          <Map lots={lots} currentLocation={currentLocation} />
+          <Options onRideClick={onRideClick} onParkClick={onParkClick} />
         </Layout.Content>
       </Layout>
     </Layout>
