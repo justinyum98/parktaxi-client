@@ -1,4 +1,5 @@
 import React from 'react';
+import { ReactComponent as Logo } from '../assets/parktaxilogo.svg';
 
 import WrappedRegistrationForm from '../components/RegisterPage/WrappedRegistrationForm';
 
@@ -9,12 +10,16 @@ const RegisterPage = () => (
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
     }}
   >
-    <div className="logo">
-      Logo here
-    </div>
+    <Logo
+      style={{
+        height: '150px',
+        width: '150px',
+        margin: '20px'
+      }}
+    />
     <WrappedRegistrationForm />
   </div>
 );

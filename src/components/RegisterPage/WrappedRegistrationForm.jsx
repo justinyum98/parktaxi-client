@@ -162,8 +162,7 @@ const RegistrationForm = ({ form }) => {
         >
           Register
         </Button>
-        Or
-        <Link to="/login">login to existing account.</Link>
+        Or <Link to="/login">login to existing account.</Link>
       </Form.Item>
     </Form>
   );
