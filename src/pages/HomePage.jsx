@@ -1,39 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Layout } from 'antd';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { Layout, message } from 'antd';
 import SideNavbar from '../components/HomePage/SideNavbar';
-import Map from '../components/HomePage/Map';
-import Options from '../components/HomePage/Options';
+import HomeContent from '../components/HomePage/HomeContent';
 
 function HomePage() {
-  const [lots, setLots] = useState([]);
-  useEffect(() => {
-    const request = {
-      method: 'GET',
-      url: `${process.env.REACT_APP_BACKEND_URL}/api/lot`
-    };
-    axios(request)
-      .then(response => {
-        console.log(response);
-        setLots(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+  const [isRideVisible, setIsRideVisible] = useState(false);
 
-  const [currentLocation, setCurrentLocation] = useState(undefined);
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(async position => {
-      const { latitude, longitude } = position.coords;
-      setCurrentLocation({
-        lat: latitude,
-        lng: longitude
-      });
-    });
-  }, []);
+  const onRideClick = () => {
+    setIsRideVisible(true);
+  };
 
-  const onRideClick = () => {};
+  const onRideSubmit = rideData => {
+    message.success('Ride requested!');
+    console.log('submitted rideData:', rideData);
+    setIsRideVisible(false);
+  };
+
+  const onRideCancel = () => {
+    console.log('Ride cancelled');
+    setIsRideVisible(false);
+  };
 
   const onParkClick = () => {};
 
@@ -42,8 +28,13 @@ function HomePage() {
       <SideNavbar />
       <Layout>
         <Layout.Content style={{ margin: '0 16px' }}>
-          <Map lots={lots} currentLocation={currentLocation} />
-          <Options onRideClick={onRideClick} onParkClick={onParkClick} />
+          <HomeContent
+            isRideVisible={isRideVisible}
+            onRideClick={onRideClick}
+            onRideSubmit={onRideSubmit}
+            onRideCancel={onRideCancel}
+            onParkClick={onParkClick}
+          />
         </Layout.Content>
       </Layout>
     </Layout>
