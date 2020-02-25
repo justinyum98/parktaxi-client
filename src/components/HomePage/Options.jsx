@@ -23,7 +23,7 @@ const Options = ({ onRideClick, onParkClick }) => (
 
 Options.propTypes = {
   onRideClick: PropTypes.func,
-  onParkClick: PropTypes.func,
+  onParkClick: PropTypes.func
 };
 
 Options.defaultProps = {
