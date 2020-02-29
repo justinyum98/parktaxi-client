@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal, Steps, TimePicker, Select, message } from 'antd';
 import _ from 'lodash';
-import PickUpMap from './PickUpMap';
+import PickUpMap from '../maps/PickUpMap';
 
 const Ride = ({ isRideVisible, onRideSubmit, onRideCancel }) => {
   const [rideForm, setRideForm] = useState({

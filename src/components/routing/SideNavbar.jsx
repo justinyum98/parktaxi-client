@@ -7,7 +7,6 @@ function SideNavbar() {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const onCollapse = collapsed => {
-    console.log(collapsed);
     setIsCollapsed(collapsed);
   };
 

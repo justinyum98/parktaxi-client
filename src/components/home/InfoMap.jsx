@@ -4,7 +4,7 @@ import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import _ from 'lodash';
 import getCurrentLocation from '../../utils/geolocation';
 
-const MapContainer = ({ google, lots, style }) => {
+const InfoMap = ({ google, lots, style }) => {
   const [state, setState] = useState({
     activeMarker: {},
     currentLocation: {},
@@ -91,7 +91,7 @@ const MapContainer = ({ google, lots, style }) => {
   );
 };
 
-MapContainer.propTypes = {
+InfoMap.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   google: PropTypes.object,
   lots: PropTypes.arrayOf(
@@ -107,7 +107,7 @@ MapContainer.propTypes = {
   })
 };
 
-MapContainer.defaultProps = {
+InfoMap.defaultProps = {
   google: undefined,
   lots: undefined,
   style: undefined
@@ -115,4 +115,4 @@ MapContainer.defaultProps = {
 
 export default GoogleApiWrapper({
   apiKey: process.env.REACT_APP_MAPS_API_KEY
-})(MapContainer);
+})(InfoMap);

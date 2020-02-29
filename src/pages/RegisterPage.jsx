@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactComponent as Logo } from '../assets/parktaxilogo.svg';
 
-import WrappedRegistrationForm from '../components/RegisterPage/WrappedRegistrationForm';
+import RegisterForm from '../components/register/RegisterForm';
 
 const RegisterPage = () => (
   <div
@@ -20,7 +20,7 @@ const RegisterPage = () => (
         margin: '20px'
       }}
     />
-    <WrappedRegistrationForm />
+    <RegisterForm />
   </div>
 );
 

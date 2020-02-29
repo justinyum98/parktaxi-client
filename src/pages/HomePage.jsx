@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, message } from 'antd';
-import SideNavbar from '../components/HomePage/SideNavbar';
-import HomeContent from '../components/HomePage/HomeContent';
+import SideNavbar from '../components/routing/SideNavbar';
 
 function HomePage() {
   const [isRideVisible, setIsRideVisible] = useState(false);
@@ -28,13 +27,7 @@ function HomePage() {
       <SideNavbar />
       <Layout>
         <Layout.Content style={{ margin: '0 16px' }}>
-          <HomeContent
-            isRideVisible={isRideVisible}
-            onRideClick={onRideClick}
-            onRideSubmit={onRideSubmit}
-            onRideCancel={onRideCancel}
-            onParkClick={onParkClick}
-          />
+          
         </Layout.Content>
       </Layout>
     </Layout>
