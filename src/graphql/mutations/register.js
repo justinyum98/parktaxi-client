@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-const REGISTER_USER = gql`
-  mutation SignupUser(
+export const REGISTER_USER = gql`
+  mutation RegisterUser(
     $firstName: String!
     $lastName: String!
     $email: EmailAddress!
@@ -25,5 +25,3 @@ const REGISTER_USER = gql`
     }
   }
 `;
-
-export default REGISTER_USER;

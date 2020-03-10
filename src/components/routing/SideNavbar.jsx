@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Icon } from 'antd';
+
+import {
+  ClockCircleOutlined,
+  CreditCardOutlined,
+  GiftOutlined,
+  QuestionCircleOutlined,
+  SettingOutlined,
+  UserOutlined
+} from '@ant-design/icons';
+
+import { Layout, Menu } from 'antd';
 
 import { ReactComponent as Logo } from '../../assets/parktaxilogo.svg';
 
@@ -25,27 +35,27 @@ function SideNavbar() {
       />
       <Menu theme="dark" mode="inline">
         <Menu.Item key="1">
-          <Icon type="user" />
+          <UserOutlined />
           <span>Profile</span>
         </Menu.Item>
         <Menu.Item key="2">
-          <Icon type="credit-card" />
+          <CreditCardOutlined />
           <span>Payment</span>
         </Menu.Item>
         <Menu.Item key="3">
-          <Icon type="clock-circle" />
+          <ClockCircleOutlined />
           <span>History</span>
         </Menu.Item>
         <Menu.Item key="4">
-          <Icon type="setting" />
+          <SettingOutlined />
           <span>Settings</span>
         </Menu.Item>
         <Menu.Item key="5">
-          <Icon type="gift" />
+          <GiftOutlined />
           <span>Rewards</span>
         </Menu.Item>
         <Menu.Item key="6">
-          <Icon type="question-circle" />
+          <QuestionCircleOutlined />
           <span>Help</span>
         </Menu.Item>
       </Menu>

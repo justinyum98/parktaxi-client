@@ -47,6 +47,7 @@ const RegisterForm = ({ handleRegister }) => {
       {...formItemLayout}
       form={form}
       name="register"
+      className="register-form"
       onFinish={onFinish}
       scrollToFirstError
     >
@@ -127,7 +128,16 @@ const RegisterForm = ({ handleRegister }) => {
       >
         <Input.Password />
       </Form.Item>
-      <Form.Item name="validSpotTypes" label="Valid Spot Types">
+      <Form.Item
+        name="validSpotTypes"
+        label="Valid Spot Types"
+        rules={[
+          {
+            required: true,
+            message: 'Check at least one spot type.'
+          }
+        ]}
+      >
         <Checkbox.Group
           style={{
             width: '100%'

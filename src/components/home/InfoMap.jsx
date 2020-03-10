@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { graphql } from '@apollo/react-hoc';
+import gql from 'graphql-tag';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import _ from 'lodash';
 import getCurrentLocation from '../../utils/geolocation';
 
-const InfoMap = ({ google, lots, style }) => {
+const InfoMap = ({ google, data: { parkingLots }, style }) => {
   const [state, setState] = useState({
     activeMarker: {},
     currentLocation: {},
@@ -59,7 +61,7 @@ const InfoMap = ({ google, lots, style }) => {
       }}
       zoom={15}
     >
-      {lots.map(({ name, lat, lng }) => (
+      {parkingLots.map(({ name, lat, lng }) => (
         <Marker
           title={name}
           name={name}
@@ -94,13 +96,15 @@ const InfoMap = ({ google, lots, style }) => {
 InfoMap.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   google: PropTypes.object,
-  lots: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      lat: PropTypes.number,
-      lng: PropTypes.number
-    })
-  ),
+  data: PropTypes.shape({
+    parkingLots: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        lat: PropTypes.number,
+        lng: PropTypes.number
+      })
+    )
+  }),
   style: PropTypes.shape({
     height: PropTypes.string,
     width: PropTypes.string
@@ -109,10 +113,20 @@ InfoMap.propTypes = {
 
 InfoMap.defaultProps = {
   google: undefined,
-  lots: undefined,
+  data: undefined,
   style: undefined
 };
 
-export default GoogleApiWrapper({
-  apiKey: process.env.REACT_APP_MAPS_API_KEY
-})(InfoMap);
+export default graphql(gql`
+  query GetAllParkingLots {
+    parkingLots {
+      name
+      lat
+      lng
+    }
+  }
+`)(
+  GoogleApiWrapper({
+    apiKey: process.env.REACT_APP_MAPS_API_KEY
+  })(InfoMap)
+);

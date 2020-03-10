@@ -3,42 +3,33 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal, Steps, TimePicker, Select, message } from 'antd';
 import _ from 'lodash';
-import PickUpMap from '../maps/PickUpMap';
+import PickUpMap from './PickUpMap';
 
 const Ride = ({ isRideVisible, onRideSubmit, onRideCancel }) => {
   const [rideForm, setRideForm] = useState({
     current: 0,
-    pickUpTime: {},
-    pickUpTimeString: '',
-    pickUpLocation: {},
-    parkingLot: '',
+    dateTime: {},
+    location: {},
+    parkingLotName: '',
     spotType: ''
   });
 
   const resetRideForm = () => {
     setRideForm({
       current: 0,
-      pickUpTime: {},
-      pickUpTimeString: '',
-      pickUpLocation: {},
-      parkingLot: '',
+      dateTime: {},
+      location: {},
+      parkingLotName: '',
       spotType: ''
     });
   };
 
   const validateRide = () => {
-    const {
-      pickUpTime,
-      pickUpTimeString,
-      pickUpLocation,
-      parkingLot,
-      spotType
-    } = rideForm;
+    const { dateTime, location, parkingLotName, spotType } = rideForm;
     return (
-      !_.isEmpty(pickUpTime) &&
-      !_.isEmpty(pickUpTimeString) &&
-      !_.isEmpty(pickUpLocation) &&
-      !_.isEmpty(parkingLot) &&
+      !_.isEmpty(dateTime) &&
+      !_.isEmpty(location) &&
+      !_.isEmpty(parkingLotName) &&
       !_.isEmpty(spotType)
     );
   };
@@ -61,22 +52,21 @@ const Ride = ({ isRideVisible, onRideSubmit, onRideCancel }) => {
   const onTimeChange = (time, timeString) => {
     setRideForm({
       ...rideForm,
-      pickUpTime: time,
-      pickUpTimeString: timeString
+      dateTime: time
     });
   };
 
   const handlePickUp = location => {
     setRideForm({
       ...rideForm,
-      pickUpLocation: location
+      location
     });
   };
 
-  const handleParkingLotChange = parkingLot => {
+  const handleParkingLotChange = parkingLotName => {
     setRideForm({
       ...rideForm,
-      parkingLot
+      parkingLotName
     });
   };
 
@@ -167,14 +157,30 @@ const Ride = ({ isRideVisible, onRideSubmit, onRideCancel }) => {
       title: 'Confirm',
       content: (
         <div style={{ textAlign: 'center' }}>
-          <p>Pick-up Time: {rideForm.pickUpTimeString}</p>
+          <p>
+            Pick-up Time:{' '}
+            {!_.isEmpty(rideForm.dateTime)
+              ? rideForm.dateTime.format('MMMM Do YYYY, h:mm:ss a')
+              : 'No time selected.'}
+          </p>
           <p>
             Pick-up Location:{' '}
-            {!_.isEmpty(rideForm.pickUpLocation) &&
-              `(${rideForm.pickUpLocation.lat}, ${rideForm.pickUpLocation.lng})`}
+            {!_.isEmpty(rideForm.location)
+              ? `(${rideForm.location.lat}, ${rideForm.location.lng})`
+              : 'No location selected.'}
           </p>
-          <p>Parking Lot: {rideForm.parkingLot}</p>
-          <p>Spot Type: {rideForm.spotType}</p>
+          <p>
+            Parking Lot:{' '}
+            {!_.isEmpty(rideForm.parkingLotName)
+              ? rideForm.parkingLotName
+              : 'No parking lot selected.'}
+          </p>
+          <p>
+            Spot Type:{' '}
+            {!_.isEmpty(rideForm.spotType)
+              ? rideForm.spotType
+              : 'No spot type selected.'}
+          </p>
         </div>
       )
     }
